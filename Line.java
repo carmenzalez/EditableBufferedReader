@@ -57,6 +57,5 @@ public class Line {
         if (pos < line.length()) {
             line.deleteCharAt(pos);
         }
-        //System.out.print(line.toString());
     }
 }
