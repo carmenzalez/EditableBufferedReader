@@ -11,7 +11,7 @@ public class Line {
     //public String line;
     //public ArrayList<Character> line;
     private StringBuilder line;
-    private int pos;
+    private int pos, len;
     
     public Line() {
         //line = new ArrayList<Character>();
@@ -56,6 +56,8 @@ public class Line {
     public void delete() {
         if (pos < line.length()) {
             line.deleteCharAt(pos);
+            //line.substring(pos);
+            len = line.length() -1;
         }
     }
 }
