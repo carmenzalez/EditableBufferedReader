@@ -1,66 +1,62 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package Editable;
+package LAB1;
+
+//import java.util.ArrayList;
 
 /**
  *
- * @author carmeeeen
+ * @author pau
  */
-
-// Programar la classe Line que mantingui l’estat de la línia en edició amb els seus corresponents mètodes.
-
 public class Line {
     
-    public String line;
-    int pos, len;
+    //public String line;
+    //public ArrayList<Character> line;
+    private StringBuilder line;
+    private int pos;
     
     public Line() {
-        line = "";
+        //line = new ArrayList<Character>();
+        line = new StringBuilder();
     }
-    
-    /*public int getPos(){
-        return this.pos;    
-    }*/
     
     public String getLine() {
-        return line;
+        pos = line.length();
+        return line.toString();
     }
+    
     public void addChar(int c) {
-        line = line + (char) c;
+        line.insert(pos, (char) c);
+        pos++;
     }
+    
     public void left() {
-        if (this.pos > 0) {
-            this.pos--;
+        if (pos > 0) {
+            pos--;
         }
-
+        System.out.print("\b");
     }
+    
     public void right() {
-        if (this.pos < this.line.length()) {
-            this.pos++;
+        if (pos < line.length()) {
+            pos++;
         }
     }
     
     public void home() {
-        this.pos = 0;
+        pos = 0;
     }
     
     public void end() {
-        this.pos = this.line.length();
+        pos = line.length();
     }
     
     public void insert() {
-        // ins: commuta mode inserció/sobre-escriptura 
         
-       
     }
     
     public void delete() {
-        if(this.pos < this.line.length()){
-            this.line.substring(this.pos);
-            len = this.line.length() - 1;
+        if (pos < line.length()) {
+            line.deleteCharAt(pos);
         }
+        //System.out.print(line.toString());
     }
 }
