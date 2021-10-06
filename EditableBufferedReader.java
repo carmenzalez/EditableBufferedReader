@@ -1,7 +1,9 @@
 package LAB1;
 
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.Reader;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
