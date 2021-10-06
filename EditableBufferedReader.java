@@ -64,40 +64,38 @@ public class EditableBufferedReader extends BufferedReader {
     
     public int read() throws IOException {
         int c;
-        try {
-            //setRaw();
+        //setRaw();
+        c = super.read();
+        if (c == ESC) {
             c = super.read();
-            if (c == ESC) {
+            if (c == 91) {
                 c = super.read();
-                if (c == 91) {
-                    c = super.read();
-                    switch (c) {
-                        case RIGHT:
-                            //System.out.println("RIGHT");
-                            return R_RIGHT;
+                switch (c) {
+                    case RIGHT:
+                        //System.out.println("RIGHT");
+                        return R_RIGHT;
                             
-                        case LEFT:
-                            //System.out.println("LEFT");
-                            return R_LEFT;
+                    case LEFT:
+                        //System.out.println("LEFT");
+                        return R_LEFT;
                         
-                        case HOME:
-                            //System.out.println("HOME");
-                            return R_HOME;
+                    case HOME:
+                        //System.out.println("HOME");
+                        return R_HOME;
                         
-                        case END:
-                            //System.out.println("END");
-                            return R_END;
+                    case END:
+                        //System.out.println("END");
+                        return R_END;
                             
-                        case INSERT:
-                            //System.out.println("INSERT");
-                            c = super.read();
-                            return R_INSERT;
+                    case INSERT:
+                        //System.out.println("INSERT");
+                        c = super.read();
+                        return R_INSERT;
                         
-                        case DELETE:
-                            //System.out.println("DELETE");
-                            c = super.read();
-                            return R_DELETE;    
-                    }
+                    case DELETE:
+                        //System.out.println("DELETE");
+                        c = super.read();
+                        return R_DELETE;    
                 }
             }
         } finally {
