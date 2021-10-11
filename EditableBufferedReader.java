@@ -1,6 +1,5 @@
 package LAB1;
 
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.Reader;
@@ -65,42 +64,33 @@ public class EditableBufferedReader extends BufferedReader {
     public int read() throws IOException {
         int c;
         //setRaw();
-        c = super.read();
-        if (c == ESC) {
-            c = super.read();
-            if (c == 91) {
-                c = super.read();
-                switch (c) {
-                    case RIGHT:
-                        //System.out.println("RIGHT");
-                        return R_RIGHT;
-                            
-                    case LEFT:
-                        //System.out.println("LEFT");
-                        return R_LEFT;
-                        
-                    case HOME:
-                        //System.out.println("HOME");
-                        return R_HOME;
-                        
-                    case END:
-                        //System.out.println("END");
-                        return R_END;
-                            
-                    case INSERT:
-                        //System.out.println("INSERT");
-                        c = super.read();
-                        return R_INSERT;
-                        
-                    case DELETE:
-                        //System.out.println("DELETE");
-                        c = super.read();
-                        return R_DELETE;    
+        if ((c = super.read()) != 27)
+            return c;
+        
+        switch (c = super.read()) {
+            case 'O':
+                switch (c = super.read()) {
+                    case 'H': return R_HOME;
+                    case 'F': return R_END;
+                    default: return c;
                 }
-            }
-        } finally {
-            //unsetRaw();
+            
+            case '[':
+                switch (c = super.read()) {
+                    case 'C': return R_RIGHT;
+                    case 'D': return R_LEFT;
+                    case 'H': return R_HOME;
+                    case '2':
+                        super.read();
+                        return R_INSERT;
+                    case '3': 
+                        super.read();
+                        return R_DELETE;
+                    case 'F': return R_END;
+                    default: return c;
+                }
         }
+        
         return c;
     }
     
@@ -140,9 +130,13 @@ public class EditableBufferedReader extends BufferedReader {
                             //System.out.println("DELETE");
                             line.delete();
                             break;
+                            
+                        case ENTER:
+                            break;
                         
                         default:
                             System.out.print((char) c);
+                            //System.out.print(line.getLine());
                             line.addChar(c);
             }
         } while (c != ENTER);
