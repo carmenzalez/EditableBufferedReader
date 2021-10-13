@@ -1,79 +1,76 @@
 package LAB1;
 
 //import java.util.ArrayList;
-
 /**
  *
  * @author pau
  */
 public class Line {
-    
+
     //public String line;
     //public ArrayList<Character> line;
     private StringBuilder line;
-    private int pos, len;
-    
+    private int index, len;
+    private boolean insertMode;
+
     public Line() {
         //line = new ArrayList<Character>();
         line = new StringBuilder();
     }
-    
+
     public String getLine() {
         //pos = line.length();
-        end();
+        //end();
         return line.toString();
     }
-    
+
+    public int getIndex() {
+        return index;
+    }
+
     public void addChar(int c) {
-        if (len != pos) {
-            //System.out.print(line.substring(pos, len).toString());
-            //System.out.print("\033["+ (len - pos) +"D");
-            System.out.append((char) c);
-        }
-        line.insert(pos, (char) c);
+        line.insert(index, (char) c);
         len = line.length();
-        pos++;
+        index++;
     }
-    
+
     public void left() {
-        if (pos > 0) {
-            pos--;
-            System.out.print("\033[1D");
+        if (index > 0) {
+            index--;
         }
     }
-    
+
     public void right() {
-        if (pos < line.length()) {
-            pos++;
-            System.out.print("\033[1C");
+        if (index < line.length()) {
+            index++;
         }
     }
-    
+
     public void home() {
-        System.out.print("\033["+ pos +"D");
-        pos = 0;
+        index = 0;
     }
-    
+
     public void end() {
-        if (pos != len) {
-            System.out.print("\033["+ (len - pos) +"C");
-            pos = line.length();
+        if (index != line.length()) {
+            index = line.length();
+        }
+    }
+
+    public void insert() {
+
+    }
+
+    public void delete() {
+        if (index < line.length()) {
+            line.deleteCharAt(index);
+            len = line.length() - 1;
         }
     }
     
-    public void insert() {
-        
-    }
-    
-    public void delete() {
-        if (pos <= len) {
-            line.deleteCharAt(pos);
-            //line.substring(pos);
-            //System.out.print("\033[1D");
-            len = line.length() -1;
-            System.out.print(line.substring(pos,len).toString());
-            //System.out.print("\033[1D");
-            //System.out.print(line.substring(pos,len).toString());
+    public void backspace() {
+        if(index > 0) {
+            index--;
+            line.deleteCharAt(index);
         }
     }
 }
