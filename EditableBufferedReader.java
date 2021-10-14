@@ -1,22 +1,23 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-package EditableBR;
+package LAB1;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.Reader;
 
-
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 /**
  *
- * @author carmeeeen
+ * @author pau
  */
 public class EditableBufferedReader extends BufferedReader {
-    
+
+    /**
+     * @param args the command line arguments
+     */
     public EditableBufferedReader(Reader in) {
         super(in);
     }
@@ -41,7 +42,7 @@ public class EditableBufferedReader extends BufferedReader {
 
     public int read() throws IOException {
         int c, ch1;
-        if ((c = super.read()) != 27) {
+        if ((c = super.read()) != Key.ESC) {
             return c;
         }
 
@@ -49,33 +50,20 @@ public class EditableBufferedReader extends BufferedReader {
             case '[':
                 switch (c = super.read()) {
                     case 'C':
-                        return Key.R_RIGHT;
+                        return Key.RIGHT;
                     case 'D':
-                        return Key.R_LEFT;
+                        return Key.LEFT;
                     case 'H':
-                        return Key.R_HOME;
+                        return Key.HOME;
                     case 'F':
-                        return Key.R_END;
-                    case '3':
-                        super.read();
-                        return Key.R_DELETE;
-                    /*case '1':
-                        if((ch1 = super.read()) != '~')
-                            return ch1;
-                        return R_HOME + c - '1';
+                        return Key.END;
+                    case '1':
                     case '2':
-                        if((ch1 = super.read()) != '~')
-                            return ch1;
-                        return R_HOME + c - '1';
                     case '3':
-                        if((ch1 = super.read()) != '~')
-                            return ch1;
-                        return R_HOME + c - '1';
                     case '4':
                         if((ch1 = super.read()) != '~')
                             return ch1;
-                        return R_HOME + c - '1';*/
-
+                        return Key.HOME + c - '1';
                     default:
                         return c;
                 }
@@ -90,32 +78,32 @@ public class EditableBufferedReader extends BufferedReader {
         do {
             c = this.read();
             switch (c) {
-                case Key.R_RIGHT:
+                case Key.RIGHT:
                     line.right();
                     break;
 
-                case Key.R_LEFT:
+                case Key.LEFT:
                     line.left();
                     break;
 
-                case Key.R_HOME:
+                case Key.HOME:
                     line.home();
                     break;
 
-                case Key.R_END:
+                case Key.END:
                     line.end();
                     break;
 
-                case Key.R_INSERT:
+                case Key.INSERT:
                     line.insert();
                     break;
 
-                case Key.R_DELETE:
+                case Key.DELETE:
                     line.delete();
                     System.out.print("\033[K");
                     break;
                     
-                case 127:
+                case Key.BACKSPACE:
                     line.backspace();
                     System.out.print("\033[1K");
                     break;
@@ -129,11 +117,8 @@ public class EditableBufferedReader extends BufferedReader {
             System.out.print("\r" + line.getLine());
             //System.out.print(line.getIndex() + 1); //Visualitzador de posició en temps real
             System.out.print("\033[" + (line.getIndex() + 1) + "G");
-            
         } while (c != Key.ENTER);
         unsetRaw();
         return line.getLine();
     }
-
-    
 }
