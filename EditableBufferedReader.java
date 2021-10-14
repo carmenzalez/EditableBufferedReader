@@ -100,12 +100,12 @@ public class EditableBufferedReader extends BufferedReader {
 
                 case Key.DELETE:
                     line.delete();
-                    System.out.print("\033[K");
+                    System.out.print("\033[2K");
                     break;
                     
                 case Key.BACKSPACE:
                     line.backspace();
-                    System.out.print("\033[1K");
+                    System.out.print("\033[2K");
                     break;
 
                 case Key.ENTER:
