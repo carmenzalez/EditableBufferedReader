@@ -7,15 +7,13 @@ package LAB1;
  */
 public class Line {
 
-    //public String line;
-    //public ArrayList<Character> line;
-    private StringBuilder line;
-    private int index, len;
+    private StringBuffer line;
+    private int index;
     private boolean insertMode;
 
     public Line() {
-        //line = new ArrayList<Character>();
-        line = new StringBuilder();
+        line = new StringBuffer();
+        insertMode = true;
     }
 
     public String getLine() {
@@ -29,9 +27,13 @@ public class Line {
     }
 
     public void addChar(int c) {
-        line.insert(index, (char) c);
-        len = line.length();
-        index++;
+        if (insertMode || (!insertMode && index >= line.length())) {
+            line.insert(index, (char) c);
+            index++;
+        } else {
+            line.setCharAt(index, (char) c);
+            index++;
+        }
     }
 
     public void left() {
@@ -57,13 +59,12 @@ public class Line {
     }
 
     public void insert() {
-
+        insertMode = !insertMode;
     }
 
     public void delete() {
         if (index < line.length()) {
             line.deleteCharAt(index);
-            len = line.length() - 1;
         }
     }
     
