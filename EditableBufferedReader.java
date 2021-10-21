@@ -14,12 +14,15 @@ import java.io.Reader;
  * @author pau
  */
 public class EditableBufferedReader extends BufferedReader {
+    
+    Line line;
 
     /**
      * @param args the command line arguments
      */
     public EditableBufferedReader(Reader in) {
         super(in);
+        line = new Line();
     }
 
     public void setRaw() {
@@ -73,7 +76,6 @@ public class EditableBufferedReader extends BufferedReader {
 
     public String readLine() throws IOException {
         int c;
-        Line line = new Line();
         setRaw();
         do {
             c = this.read();
