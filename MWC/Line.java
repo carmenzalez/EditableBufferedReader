@@ -8,7 +8,7 @@ import java.util.Observable;
  */
 public class Line extends Observable {
     
-    private StringBuffer line;
+    protected StringBuffer line;
     private int index;
     private boolean insertMode;
 
@@ -69,8 +69,6 @@ public class Line extends Observable {
 
     public void insert() {
         insertMode = !insertMode;
-        this.setChanged();
-        this.notifyObservers(Key.INSERT);
     }
 
     public void delete() {
